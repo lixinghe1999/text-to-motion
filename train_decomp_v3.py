@@ -66,7 +66,6 @@ if __name__ == '__main__':
         kinematic_chain = paramUtil.kit_kinematic_chain
     else:
         raise KeyError('Dataset Does Not Exist')
-
     mean = np.load(pjoin(opt.data_root, 'Mean.npy'))
     std = np.load(pjoin(opt.data_root, 'Std.npy'))
 
@@ -93,8 +92,8 @@ if __name__ == '__main__':
     train_dataset = MotionDatasetV2(opt, mean, std, train_split_file)
     val_dataset = MotionDatasetV2(opt, mean, std, val_split_file)
     train_loader = DataLoader(train_dataset, batch_size=opt.batch_size, drop_last=True, num_workers=4,
-                              shuffle=True, pin_memory=True)
+                              shuffle=False, pin_memory=True)
     val_loader = DataLoader(val_dataset, batch_size=opt.batch_size, drop_last=True, num_workers=4,
-                            shuffle=True, pin_memory=True)
+                            shuffle=False, pin_memory=True)
 
     trainer.train(train_loader, val_loader, plot_t2m)

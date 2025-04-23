@@ -367,7 +367,7 @@ class CompTrainerV6(object):
             if teacher_force:
                 mov_in = self.movements[:, i].detach()
             else:
-                mov_in = fake_mov.detach()
+                mov_in = fake_mov.detach()  
 
 
         self.fake_movements = torch.cat(fake_mov_batch, dim=1)
@@ -724,7 +724,7 @@ class CompTrainerV6(object):
                         self.forward(batch_data, 0, schedule_len, eval_mode=True)
                     fake_data = self.fake_motions[:4]
                     gt_data = self.motions[:4]
-                    data = torch.cat([fake_data, reco_data, gt_data], dim=0).cpu().numpy()
+                    data = torch.cat([fake_data, reco_data, gt_data], dim=0).detach().cpu().numpy()
                     captions = self.caption[:4] * 3
                     save_dir = pjoin(self.opt.eval_dir, 'E%03d_SE%02d_SL%02d'%(epoch, sub_epoch, schedule_len))
                     os.makedirs(save_dir, exist_ok=True)
